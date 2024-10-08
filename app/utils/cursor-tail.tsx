@@ -1,101 +1,102 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import Particles, { initParticlesEngine, } from "@tsparticles/react"; // Import necessary types
+import Particles, { initParticlesEngine, Container } from "@tsparticles/react"; // Import necessary types
 import { loadSlim } from "@tsparticles/slim"; // slim version for smaller bundle size
 
 // Define the props interface (if needed)
 interface ParticlesComponentProps {
-  id: string;
+  id?: string; // Optional id for the component
 }
 
-const ParticlesComponent: React.FC<ParticlesComponentProps> = (props) => {
+const ParticlesComponent: React.FC<ParticlesComponentProps> = ({ id = "tsparticles" }) => {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
-      // Use the slim version to load particles for smaller bundle size
       await loadSlim(engine);
     }).then(() => {
       setInit(true);
     });
   }, []);
 
-  // Particles loaded callback (use the correct type)
-  const particlesLoaded = (container:  undefined): void => {
+  // Particles loaded callback
+  const particlesLoaded = (container: Container | undefined): void => {
     console.log(container);
   };
-interface ISourceOptions {
+
+  interface ISourceOptions {
     background: {
-        color: {
+      color: {
         value: string;
-        };
+      };
     };
     fpsLimit: number;
     interactivity: {
-        events: {
+      events: {
         onClick: {
-            enable: boolean;
-            mode: string;
+          enable: boolean;
+          mode: string;
         };
         onHover: {
-            enable: boolean;
-            mode: string;
+          enable: boolean;
+          mode: string;
         };
-        };
-        modes: {
+      };
+      modes: {
         push: {
-            distance: number;
-            duration: number;
+          distance: number;
+          duration: number;
         };
         grab: {
-            distance: number;
+          distance: number;
         };
-        };
+      };
     };
     particles: {
-        color: {
+      color: {
         value: string;
-        };
-        links: {
+      };
+      links: {
         color: string;
         distance: number;
         enable: boolean;
         opacity: number;
         width: number;
-        };
-        move: {
+      };
+      move: {
         direction: string;
         enable: boolean;
         outModes: {
-            default: string;
+          default: string;
         };
         random: boolean;
         speed: number;
         straight: boolean;
-        };
-        number: {
+      };
+      number: {
         density: {
-            enable: boolean;
+          enable: boolean;
         };
         value: number;
-        };
-        opacity: {
+      };
+      opacity: {
         value: number;
-        };
-        shape: {
+      };
+      shape: {
         type: string;
-        };
-        size: {
+      };
+      size: {
         value: {
-            min: number;
-            max: number;
+          min: number;
+          max: number;
         };
-        };
+      };
     };
     detectRetina: boolean;
-}
-  // Define particle options with ISourceOptions type
-  const options:ISourceOptions  = useMemo(
+  }
+
+  // Define particle options
+  const options: ISourceOptions = useMemo(
     () => ({
       background: {
         color: {
@@ -166,7 +167,10 @@ interface ISourceOptions {
     []
   );
 
-  return init ? <Particles id={props.id}  options={options} /> : null;
+  return init ? (
+   
+      <Particles id={id} options={options} loaded={particlesLoaded} />
+  ) : null;
 };
 
 export default ParticlesComponent;

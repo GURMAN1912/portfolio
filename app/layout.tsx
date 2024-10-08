@@ -31,9 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         {/* Cursor trail component */}
-        <div className="-z-10 relative">
           <CursorTrailCanvas id="particles" />
-        </div>
 
         {/* Navbar */}
         <Navbar routes={routes} />
