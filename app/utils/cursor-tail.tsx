@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import Particles, { initParticlesEngine } from "@tsparticles/react"; // Import necessary types
-import { loadSlim } from "@tsparticles/slim"; // slim version for smaller bundle size
-import type { ISourceOptions } from "tsparticles-engine"; // Use the built-in type for options
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
+import type { ISourceOptions } from "tsparticles-engine"; // Use the built-in type
 
 interface ParticlesComponentProps {
-  id?: string; // Optional id for the component
+  id?: string;
 }
 
 const ParticlesComponent: React.FC<ParticlesComponentProps> = ({ id = "tsparticles" }) => {
@@ -23,29 +23,98 @@ const ParticlesComponent: React.FC<ParticlesComponentProps> = ({ id = "tsparticl
       });
   }, []);
 
-  // Particles loaded callback
-  const particlesLoaded = (container:any): void => {
+  const particlesLoaded = (container: any): void => {
     console.log("Particles loaded", container);
   };
 
-  // Define particle options with the correct type
-  const options: ISourceOptions = useMemo(
+  interface Options{
+    background: {
+      color: {
+        value: string;
+      };
+    };
+    fpsLimit: number;
+    interactivity: {
+      events: {
+        onClick: {
+          enable: boolean;
+          mode: string;
+        };
+        onHover: {
+          enable: boolean;
+          mode: string;
+        };
+      };
+      modes: {
+        push: {
+          distance: number;
+          duration: number;
+        };
+        grab: {
+          distance: number;
+        };
+      };
+    };
+    particles: {
+      color: {
+        value: string;
+      };
+      links: {
+        color: string;
+        distance: number;
+        enable: boolean;
+        opacity: number;
+        width: number;
+      };
+      move: {
+        direction: string;
+        enable: boolean;
+        outModes: {
+          default: string;
+        };
+        random: boolean;
+        speed: number;
+        straight: boolean;
+      };
+      number: {
+        density: {
+          enable: boolean;
+        };
+        value: number;
+      };
+      opacity: {
+        value: number;
+      };
+      shape: {
+        type: string;
+      };
+      size: {
+        value: {
+          min: number;
+          max: number;
+        };
+      };
+    };
+    detectRetina: boolean;
+  }
+  // Use ISourceOptions for the options type
+  const options:any = useMemo(
     () => ({
       background: {
         color: {
-          value: "#000", // Background color
+          value: "#000",
         },
       },
-      fpsLimit: 120, // Limit the frame rate
+      fpsLimit: 120,
       interactivity: {
         events: {
           onClick: {
             enable: true,
-            mode: "repulse", // Repulse on click
+            mode: "repulse",
           },
           onHover: {
             enable: true,
-            mode: "grab", // Grab effect on hover
+            mode: "grab",
           },
         },
         modes: {
@@ -60,47 +129,47 @@ const ParticlesComponent: React.FC<ParticlesComponentProps> = ({ id = "tsparticl
       },
       particles: {
         color: {
-          value: "#FFFFFF", // Particle color
+          value: "#FFFFFF",
         },
         links: {
-          color: "#FFFFFF", // Link color
+          color: "#FFFFFF",
           distance: 150,
           enable: true,
           opacity: 0.3,
           width: 1,
         },
         move: {
-          direction: "none", // Valid values are "none", "top", "bottom", etc.
+          direction: "none",
           enable: true,
           outModes: {
             default: "bounce",
           },
           random: true,
-          speed: 1, // Particle speed
+          speed: 1,
           straight: false,
         },
         number: {
           density: {
-            enable: true, // Enable density
+            enable: true,
           },
-          value: 150, // Number of particles
+          value: 150,
         },
         opacity: {
-          value: 1.0, // Particle opacity
+          value: 1.0,
         },
         shape: {
-          type: "circle", // Particle shape
+          type: "circle",
         },
         size: {
-          value: { min: 1, max: 3 }, // Size of particles
+          value: { min: 1, max: 3 },
         },
       },
-      detectRetina: true, // Retina support
+      detectRetina: true,
     }),
     []
   );
 
-  return init ? <Particles id={id} options={options} loaded={particlesLoaded} /> : null;
+  return init ? <Particles id={id} options={options}  /> : null;
 };
 
 export default ParticlesComponent;
