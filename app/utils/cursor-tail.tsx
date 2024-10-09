@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import Particles, { initParticlesEngine, Container } from "@tsparticles/react"; // Import necessary types
+import Particles, { initParticlesEngine } from "@tsparticles/react"; // Import necessary types
 import { loadSlim } from "@tsparticles/slim"; // slim version for smaller bundle size
+import type { ISourceOptions } from "tsparticles-engine"; // Use the built-in type for options
 
-// Define the props interface (if needed)
 interface ParticlesComponentProps {
   id?: string; // Optional id for the component
 }
@@ -14,88 +14,21 @@ const ParticlesComponent: React.FC<ParticlesComponentProps> = ({ id = "tsparticl
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+    })
+      .then(() => {
+        setInit(true);
+      })
+      .catch((error) => {
+        console.error("Error initializing particles engine:", error);
+      });
   }, []);
 
   // Particles loaded callback
-  const particlesLoaded = (container: Container | undefined): void => {
-    console.log(container);
+  const particlesLoaded = (container:any): void => {
+    console.log("Particles loaded", container);
   };
 
-  interface ISourceOptions {
-    background: {
-      color: {
-        value: string;
-      };
-    };
-    fpsLimit: number;
-    interactivity: {
-      events: {
-        onClick: {
-          enable: boolean;
-          mode: string;
-        };
-        onHover: {
-          enable: boolean;
-          mode: string;
-        };
-      };
-      modes: {
-        push: {
-          distance: number;
-          duration: number;
-        };
-        grab: {
-          distance: number;
-        };
-      };
-    };
-    particles: {
-      color: {
-        value: string;
-      };
-      links: {
-        color: string;
-        distance: number;
-        enable: boolean;
-        opacity: number;
-        width: number;
-      };
-      move: {
-        direction: string;
-        enable: boolean;
-        outModes: {
-          default: string;
-        };
-        random: boolean;
-        speed: number;
-        straight: boolean;
-      };
-      number: {
-        density: {
-          enable: boolean;
-        };
-        value: number;
-      };
-      opacity: {
-        value: number;
-      };
-      shape: {
-        type: string;
-      };
-      size: {
-        value: {
-          min: number;
-          max: number;
-        };
-      };
-    };
-    detectRetina: boolean;
-  }
-
-  // Define particle options
+  // Define particle options with the correct type
   const options: ISourceOptions = useMemo(
     () => ({
       background: {
@@ -137,7 +70,7 @@ const ParticlesComponent: React.FC<ParticlesComponentProps> = ({ id = "tsparticl
           width: 1,
         },
         move: {
-          direction: "none",
+          direction: "none", // Valid values are "none", "top", "bottom", etc.
           enable: true,
           outModes: {
             default: "bounce",
@@ -167,10 +100,7 @@ const ParticlesComponent: React.FC<ParticlesComponentProps> = ({ id = "tsparticl
     []
   );
 
-  return init ? (
-   
-      <Particles id={id} options={options} loaded={particlesLoaded} />
-  ) : null;
+  return init ? <Particles id={id} options={options} loaded={particlesLoaded} /> : null;
 };
 
 export default ParticlesComponent;

@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { FC, SVGProps } from "react";
 
 export type SkillPillProps = {

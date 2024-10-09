@@ -33,6 +33,8 @@ export default function RootLayout({
         {/* Cursor trail component */}
           <CursorTrailCanvas id="particles" />
 
+        <div className="realative z-200">
+
         {/* Navbar */}
         <Navbar routes={routes} />
 
@@ -41,6 +43,7 @@ export default function RootLayout({
 
         {/* Footer */}
         <Footer />
+        </div>
       </body>
     </html>
   );

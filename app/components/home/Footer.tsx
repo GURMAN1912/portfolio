@@ -23,13 +23,7 @@ export default function Footer() {
         twitter: "https://x.com/",
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        setFormSubmitted(true);
-        setTimeout(() => {
-            setShowForm(false);
-        }, 2000); // Delay to transition to button
-    };
+    
 
     // Close the form if clicking outside
     useEffect(() => {
@@ -49,7 +43,7 @@ export default function Footer() {
     }, [showForm]);
 
     return (
-        <footer className="flex w-full flex-col items-center gap-20 z-100 px-6 py-8 sm:px-14 md:px-20">
+        <footer className="bottom-0 relative flex w-full flex-col items-center gap-20 z-100 px-6 py-8 sm:px-14 md:px-20">
             <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 rounded-2xl bg-accent p-8 text-accent-foreground/80 sm:p-12 md:gap-12 lg:p-20">
                 <div className="text-center">
                     <span className="inline-block rounded-full bg-background px-5 py-3 text-xs font-semibold uppercase text-accent-foreground md:text-sm lg:text-base">
