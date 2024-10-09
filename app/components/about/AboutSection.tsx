@@ -70,7 +70,7 @@ const AboutSection = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                I turn vision into reality with code. Whether I'm working on a
+                I turn vision into reality with code. Whether I{"'"}m working on a
                 website or any digital product, I bring my commitment to design
                 excellence and user-centered thinking to every project I work on.
               </motion.p>

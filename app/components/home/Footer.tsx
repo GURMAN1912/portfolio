@@ -13,7 +13,6 @@ interface SiteMetaData {
 
 export default function Footer() {
     const [showForm, setShowForm] = useState(false);
-    const [formSubmitted, setFormSubmitted] = useState(false);
     const formRef = useRef<HTMLDivElement>(null); // Reference for the form container
 
     const siteMetadata: SiteMetaData = {
@@ -65,7 +64,7 @@ export default function Footer() {
                     </div>
                 <div className="flex justify-center">
                     <button onClick={() => setShowForm(!showForm)} className="bg-background px-4 py-3 rounded-xl text-xl">
-                        {formSubmitted ? "Thank You!" : "Send a message"}
+                        {"Send a message"}
                     </button>
                 </div>
             </div>

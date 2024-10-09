@@ -52,6 +52,10 @@
           name: "Typescript",
           icon: TypescriptSvg,
         },
+        {
+            name: "Java",
+            icon: JavaSvg,
+        }
         
       ],
     },
